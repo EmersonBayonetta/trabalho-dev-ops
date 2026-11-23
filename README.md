@@ -2,7 +2,11 @@
 
 # Portfólio fictício — Emerson Teododo
 
-Site estático em HTML e CSS, com imagens SVG locais. O workflow de CI valida Pull Requests para `main` em Node.js 18 e 20; o workflow de CD publica o site no GitHub Pages após cada push em `main`.
+Site estático em HTML e CSS, com imagens SVG locais.
+
+**Site publicado:** [https://emersonbayonetta.github.io/trabalho-dev-ops/](https://emersonbayonetta.github.io/trabalho-dev-ops/)
+
+O workflow de CI valida Pull Requests para `main` em Node.js 18 e 20; o workflow de CD publica o site no GitHub Pages após cada push em `main`.
 
 ## Validações de CI
 
@@ -24,7 +28,7 @@ O validador de referências requer Python 3.
 ## Configuração necessária no GitHub
 
 1. Confirme se o badge aponta para o repositório correto.
-2. Em **Settings → Pages**, selecione **GitHub Actions** como origem de publicação.
+2. O GitHub Pages já está configurado para publicar pela origem **GitHub Actions**.
 3. Em **Settings → Branches**, crie uma regra para `main` que exija Pull Request e os dois checks `CI / Lint and validate (Node 18)` e `CI / Lint and validate (Node 20)`. Isso bloqueia o merge quando um check falhar.
 4. Em **Settings → Collaborators**, convide `09116428-collab`.
 5. Para receber e-mail quando o deploy falhar, configure os Secrets `SMTP_HOST`, `SMTP_PORT` (opcional; padrão 587), `SMTP_USERNAME`, `SMTP_PASSWORD`, `NOTIFY_EMAIL_FROM` e `NOTIFY_EMAIL_TO`. O servidor SMTP precisa aceitar STARTTLS.
