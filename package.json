@@ -1,0 +1,12 @@
+{
+  "name": "emerson-teododo-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "lint": "html-validate index.html",
+    "validate:site": "python scripts/validate_site.py"
+  },
+  "devDependencies": {
+    "html-validate": "9.7.1"
+  }
+}
