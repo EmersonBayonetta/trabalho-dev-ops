@@ -13,7 +13,8 @@ O workflow de CI valida Pull Requests para `main` em Node.js 18 e 20; o workflow
 - Confirma que `index.html` está na raiz.
 - Rejeita arquivos com mais de 500 KB.
 - Procura marcadores TODO/FIXME e termos sensíveis nos arquivos do site.
-- Executa o `html-validate` e verifica links, âncoras e caminhos de imagens.
+- Executa o `html-validate`, testa URLs externas permitidas e verifica links, âncoras e imagens locais.
+- Testa os casos de validação de referências.
 
 Para executar localmente:
 
@@ -21,6 +22,7 @@ Para executar localmente:
 npm ci
 npm run lint
 npm run validate:site
+npm run test:validator
 ```
 
 O validador de referências requer Python 3.
