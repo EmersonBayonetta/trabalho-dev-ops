@@ -67,3 +67,6 @@ jobs:
 
       - name: Validate links and images
         run: npm run validate:site
+
+      - name: Test site validator
+        run: npm run test:validator

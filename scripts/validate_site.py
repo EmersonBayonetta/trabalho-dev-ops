@@ -1,12 +1,20 @@
 from html.parser import HTMLParser
+from urllib.error import HTTPError, URLError
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
+from urllib.request import HTTPRedirectHandler, Request, build_opener
 import re
 import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
 HTML_FILE = ROOT / "index.html"
+ALLOWED_EXTERNAL_HOSTS = {"github.com", "www.linkedin.com"}
+
+
+class NoRedirectHandler(HTTPRedirectHandler):
+    def redirect_request(self, request, response, code, message, headers, new_url):
+        return None
 
 
 class ReferenceParser(HTMLParser):
@@ -35,16 +43,35 @@ def valid_email(value):
 
 
 def check_reference(parser, tag, attribute, value):
-    parsed = urlsplit(value)
+    try:
+        parsed = urlsplit(value)
+        hostname = parsed.hostname
+        parsed.port
+    except ValueError:
+        parser.errors.append(f"URL inválida em <{tag}> {attribute}: {value}")
+        return
 
     if parsed.scheme in ("http", "https"):
-        if not parsed.hostname or parsed.username or parsed.password:
+        if not hostname or parsed.username or parsed.password:
             parser.errors.append(f"URL externa inválida em <{tag}> {attribute}: {value}")
             return
+        if hostname.lower() not in ALLOWED_EXTERNAL_HOSTS:
+            parser.errors.append(f"Host externo não permitido em <{tag}> {attribute}: {hostname}")
+            return
+
+        request = Request(value, method="HEAD", headers={"User-Agent": "portfolio-ci-link-check/1.0"})
+        opener = build_opener(NoRedirectHandler())
         try:
-            parsed.port
-        except ValueError:
-            parser.errors.append(f"Porta inválida em <{tag}> {attribute}: {value}")
+            with opener.open(request, timeout=15) as response:
+                status = response.status
+        except HTTPError as error:
+            status = error.code
+        except (URLError, TimeoutError, OSError) as error:
+            parser.errors.append(f"Não foi possível acessar a URL em <{tag}> {attribute}: {value} ({error})")
+            return
+
+        if not 200 <= status < 400:
+            parser.errors.append(f"URL externa respondeu HTTP {status} em <{tag}> {attribute}: {value}")
         return
 
     if parsed.scheme == "mailto":

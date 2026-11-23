@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "lint": "html-validate index.html",
-    "validate:site": "python scripts/validate_site.py"
+    "validate:site": "python -B scripts/validate_site.py",
+    "test:validator": "python -B -m unittest discover -s tests"
   },
   "devDependencies": {
     "html-validate": "9.7.1"
