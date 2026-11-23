@@ -1,4 +1,4 @@
-[![CI](https://github.com/SEU_USUARIO/SEU_REPOSITORIO/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/SEU_USUARIO/SEU_REPOSITORIO/actions/workflows/ci.yml)
+[![CI](https://github.com/EmersonBayonetta/trabalho-dev-ops/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/EmersonBayonetta/trabalho-dev-ops/actions/workflows/ci.yml)
 
 # Portfólio fictício — Emerson Teododo
 
@@ -23,7 +23,7 @@ O validador de referências requer Python 3.
 
 ## Configuração necessária no GitHub
 
-1. Substitua `SEU_USUARIO/SEU_REPOSITORIO` no badge acima pelo caminho real do repositório.
+1. Confirme se o badge aponta para o repositório correto.
 2. Em **Settings → Pages**, selecione **GitHub Actions** como origem de publicação.
 3. Em **Settings → Branches**, crie uma regra para `main` que exija Pull Request e os dois checks `CI / Lint and validate (Node 18)` e `CI / Lint and validate (Node 20)`. Isso bloqueia o merge quando um check falhar.
 4. Em **Settings → Collaborators**, convide `09116428-collab`.
